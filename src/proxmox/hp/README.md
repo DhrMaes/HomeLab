@@ -6,7 +6,13 @@ This folder contains the scripts, service and timer needed for proxmox to push i
 
 To install this tool you can run the following command:
 
-`wget -qO https://github.com/DhrMaes/HomeLab/raw/main/install-hpraid-monitor.sh | bash`
+For the latest main version:
+
+`wget -qO - https://raw.githubusercontent.com/DhrMaes/HomeLab/refs/heads/main/src/proxmox/hp/hp-raid-status-install.sh | bash`
+
+For a specific verions:
+
+`wget -qO - https://raw.githubusercontent.com/DhrMaes/HomeLab/refs/heads/1.0.1/src/proxmox/hp/hp-raid-status-install.sh | bash -s 1.0.1`
 
 ### How it works
 
