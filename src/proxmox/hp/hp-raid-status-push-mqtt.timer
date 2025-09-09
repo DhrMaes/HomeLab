@@ -1,0 +1,10 @@
+[Unit]
+Description=Run HP RAID health check and publish to MQTT every 5 minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=5min
+Unit=hp-raid-status-push-mqtt.service
+
+[Install]
+WantedBy=timers.target
