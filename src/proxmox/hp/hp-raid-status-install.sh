@@ -6,7 +6,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "=== Installing mosquitto-clients ==="
-bash "$SCRIPT_DIR/src/proxmox/mqtt-mosquitto-install.sh"
+bash "$SCRIPT_DIR/src/proxmox/hp/mqtt-mosquitto-install.sh"
 
 echo "=== Installing ssacli tool ==="
 bash "$SCRIPT_DIR/src/proxmox/hp/hp-raid-install-cli-tool.sh"
