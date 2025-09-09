@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/default/hp-raid-mqtt
-ExecStart=/usr/local/bin/homelab/hp-raid-status-push-mqtt.sh
+ExecStart=/usr/local/bin/hp-raid-status-push-mqtt.sh
 
 [Install]
 WantedBy=multi-user.target

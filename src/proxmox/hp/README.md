@@ -8,11 +8,21 @@ To install this tool you can run the following command:
 
 For the latest main version:
 
-`wget -qO - https://raw.githubusercontent.com/DhrMaes/HomeLab/refs/heads/main/src/proxmox/hp/hp-raid-status-install.sh | bash`
+`wget -O hp-raid-status-install.sh https://raw.githubusercontent.com/DhrMaes/HomeLab/refs/heads/main/src/proxmox/hp/hp-raid-status-install.sh`
 
 For a specific verions:
 
-`wget -qO - https://raw.githubusercontent.com/DhrMaes/HomeLab/refs/heads/1.0.1/src/proxmox/hp/hp-raid-status-install.sh | bash -s 1.0.1`
+`wget -O hp-raid-status-install.sh https://raw.githubusercontent.com/DhrMaes/HomeLab/refs/heads/1.0.1/src/proxmox/hp/hp-raid-status-install.sh`
+
+Then make it executable:
+
+`chmod +x hp-raid-status-install.sh`
+
+Then execute it:
+
+`./hp-raid-status-install.sh`
+
+`./hp-raid-status-install.sh -s "1.0.1"`
 
 ### How it works
 
