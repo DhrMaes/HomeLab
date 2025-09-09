@@ -48,7 +48,7 @@ read -rsp "MQTT Password: " MQTT_PASS
 echo
 
 # --- Create environment file ---
-ENV_FILE="/etc/default/hpraid-mqtt"
+ENV_FILE="/etc/default/hp-raid-mqtt"
 echo "=== Writing $ENV_FILE ==="
 cat <<EOF | tee "$ENV_FILE" > /dev/null
 MQTT_BROKER="$MQTT_BROKER"
