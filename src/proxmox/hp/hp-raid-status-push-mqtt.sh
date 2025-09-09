@@ -50,7 +50,8 @@ publish_mqtt() {
 CTRL_STATUS=$(ssacli ctrl all show status | awk -F ':' '/Controller Status/ {print $2}' | xargs)
 LD_STATUS=$(ssacli ctrl all show status | awk -F ':' '/Logical Drive Status/ {print $2}' | xargs)
 
-if [[ "$CTRL_STATUS" == "OK" && "$LD_STATUS" == "OK" ]]; then
+# if [[ "$CTRL_STATUS" == "OK" && "$LD_STATUS" == "OK" ]]; then
+if [[ "$CTRL_STATUS" == "OK" ]]; then
   OVERALL="healthy"
 else
   OVERALL="warning"
@@ -68,19 +69,23 @@ publish_mqtt "$BASE_TOPIC/overall/config" "{
 publish_mqtt "$BASE_TOPIC/overall/state" "$OVERALL"
 
 # --- Per-disk status ---
-ssacli ctrl all show config | grep physicaldrive | while read -r line; do
+mapfile -t DISKS < <(ssacli ctrl all show config | grep physicaldrive)
+
+for line in "${DISKS[@]}"; do
+# ssacli ctrl all show config | grep physicaldrive | while read -r line; do
     DRIVE=$(echo "$line" | awk '{print $2}' | tr -d '()')
-    RAW_STATUS=$(echo "$line" | awk -F ':' '{print $2}' | xargs)
+    DRIVE_SAFE=$(echo "$DRIVE" | tr ':.' '_')
+    RAW_STATUS=$(echo "$line" | awk -F '[()]' '{print $2}' | awk -F',' '{gsub(/^[ \t]+|[ \t]+$/,"",$NF); print $NF}')
     STATUS=$(normalize_status "$RAW_STATUS")
     ICON=$(icon_for_status "$STATUS")
 
-    CONFIG_TOPIC="$BASE_TOPIC/$DRIVE/config"
-    STATE_TOPIC="$BASE_TOPIC/$DRIVE/state"
+    CONFIG_TOPIC="$BASE_TOPIC/$DRIVE_SAFE/config"
+    STATE_TOPIC="$BASE_TOPIC/$DRIVE_SAFE/state"
 
     publish_mqtt "$CONFIG_TOPIC" "{
-      \"name\": \"${HOSTNAME} RAID $DRIVE\",
+      \"name\": \"${HOSTNAME} RAID $DRIVE_SAFE\",
       \"state_topic\": \"$STATE_TOPIC\",
-      \"unique_id\": \"${HOSTNAME}_raid_$DRIVE\",
+      \"unique_id\": \"${HOSTNAME}_raid_$DRIVE_SAFE\",
       \"icon\": \"$ICON\",
       \"device\": { $DEVICE_INFO }
     }"
