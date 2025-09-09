@@ -25,7 +25,7 @@ download_file() {
 }
 
 # --- Download required files ---
-download_file "$RAW_BASE/hp/mqtt-mosquitto-install.sh" "$TMPDIR/hp/mqtt-mosquitto-install.sh"
+download_file "$RAW_BASE/hp/mqtt-mosquitto-install.sh" "$TMPDIR/mqtt-mosquitto-install.sh"
 download_file "$RAW_BASE/hp/hp-raid-install-cli-tool.sh" "$TMPDIR/hp-raid-install-cli-tool.sh"
 download_file "$RAW_BASE/hp/hp-raid-status-push-mqtt.sh" "/usr/local/bin/hp-raid-status-push-mqtt.sh"
 download_file "$RAW_BASE/hp/hp-raid-status-push-mqtt.service" "/etc/systemd/system/hp-raid-status-push-mqtt.service"
@@ -33,7 +33,7 @@ download_file "$RAW_BASE/hp/hp-raid-status-push-mqtt.timer" "/etc/systemd/system
 
 # --- Run installers ---
 echo "=== Installing mosquitto-clients ==="
-bash "$TMPDIR/hp/mqtt-mosquitto-install.sh"
+bash "$TMPDIR/mqtt-mosquitto-install.sh"
 
 echo "=== Installing ssacli tool ==="
 bash "$TMPDIR/hp-raid-install-cli-tool.sh"
